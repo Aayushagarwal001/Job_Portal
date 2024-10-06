@@ -42,11 +42,11 @@ const jobSchema = new mongoose.Schema({
     //     default: "Active",
     // },    
     responsibilities: {
-        type: [String],
+        type: String,
         required: true,
     },
     qualifications: {
-        type: [String],
+        type: String,
         required: true,
     },
     experience: {
@@ -62,7 +62,7 @@ const jobSchema = new mongoose.Schema({
         required: true,
     },
     offers:{
-        type: [String],
+        type: String,
     },
     salary: {
         type: Number,

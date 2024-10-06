@@ -6,7 +6,7 @@ import { sendEmail } from "../Utils/SendEmail.js";
 // Function to send email notification to users about upcoming jobs
 
 export const newsLetterCron = () => {
-    cron.schedule("*/1 * * * *", async () => {
+    cron.schedule("* */1 * * *", async () => {
         console.log("running................. ");
         const jobs = await Job.find({newsLetterSent: false});
 

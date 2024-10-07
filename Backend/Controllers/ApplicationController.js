@@ -27,7 +27,7 @@ export const postApplication = catchAsyncErrors(async(req, res, next)=>{
         return next(new ErrorHandler("Job not found.", 404));
     }
     const isAlreadyApplied = await Application.findOne({
-        "jobInfo.id": id,
+        "jobInfo.jobId": id,
         "jobSeekerInfo.id": req.user._id
     });
     if(isAlreadyApplied){

@@ -22,12 +22,11 @@ const jobSchema = new mongoose.Schema({
     location: {
         type: String,
         required: true,
-        maxLength: [80, "Location cannot exceed 80 characters."],
     },
     jobType: {
         type: String,
         required: [true, "Job type is required."],
-        enum: ["Full Time", "Part Time", "Contract"],
+        enum: ["Full-time", "Part-time", "Contract"],
     },    
     description: {
         type: String,
@@ -49,25 +48,29 @@ const jobSchema = new mongoose.Schema({
         type: [String],
         required: true,
     },
-    experience: {
-        type: String,
-        required: true,
-    },
+    // experience: {
+    //     type: String,
+    //     required: true,
+    // },
     vacancies: {
         type: Number,
         min: [0, "Vacancies cannot be negative."],
-    },
-    skillsRequired: {
-        type: [String],
-        required: true,
-    },
+    },    
+    // vacancies: {
+    //     type: String,
+    //     default: "No",
+    //     enum: ["Yes", "No"],
+    // },
+    // skillsRequired: {
+    //     type: [String],
+    //     required: true,
+    // },
     offers:{
         type: [String],
     },
     salary: {
-        type: Number,
+        type: String,
         required: true,
-        min: [0, "Salary cannot be negative."],
     },
     newsLetterSent: {
         type: Boolean,

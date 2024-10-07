@@ -11,8 +11,8 @@ export const postJob = catchAsyncErrors(async (req, res, next) => {
         description,
         responsibilities,
         qualifications,
-        experience,
-        skillsRequired,
+        // experience,
+        // skillsRequired,
         offers,
         salary,
         vacancies,
@@ -30,8 +30,8 @@ export const postJob = catchAsyncErrors(async (req, res, next) => {
         !description ||
         !responsibilities ||
         !qualifications ||
-        !experience ||
-        !skillsRequired ||
+        // !experience ||
+        // !skillsRequired ||
         !salary ||
         !jobCategory
     ) {
@@ -65,8 +65,8 @@ export const postJob = catchAsyncErrors(async (req, res, next) => {
         description,
         responsibilities,
         qualifications,
-        experience,
-        skillsRequired,
+        // experience,
+        // skillsRequired,
         salary,
         vacancies,
         companyWebsite: {

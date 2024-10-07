@@ -18,7 +18,7 @@ input::-webkit-outer-spin-button {
 .btn,
 .black_btn,
 .outline_btn {
-  background: #dfdf07;
+  background: #99bde5;
   color: #111;
   font-weight: 500;
   border: none;
@@ -58,8 +58,8 @@ input::-webkit-outer-spin-button {
 }
 .outline_btn {
   background: transparent;
-  color: #dfdf07;
-  border: 1px solid #dfdf07;
+  color: #7aaae2;
+  border: 1px solid #a19d9d;
 }
 .btn:hover {
   background-color: #111;
@@ -68,7 +68,7 @@ input::-webkit-outer-spin-button {
   cursor: pointer;
 }
 .outline_btn:hover {
-  background: #dfdf07;
+  background: #f63d30;
   color: #111;
   transition: 0.3s;
   cursor: pointer;
@@ -1358,7 +1358,7 @@ footer ul li a:hover {
   transform: translateX(10px);
 }
 .account .container .sidebar .sidebar_links .active {
-  color: #dfdf07;
+  color: #99bcf0;
 }
 .account .container .banner {
   width: 100%;
@@ -1493,7 +1493,7 @@ footer ul li a:hover {
 }
 .account_components .applications_container .card {
   margin-bottom: 30px;
-  background: #8080803d;
+  background: #a4a4a43d;
   padding: 25px 12px;
   border-radius: 7px;
 }

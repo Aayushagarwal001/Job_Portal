@@ -1321,7 +1321,7 @@ footer ul li a:hover {
   color: #111;
 }
 .account .component_header p:last-child span {
-  color: #dfdf07;
+  color: #467de4;
 }
 
 .account .container {
@@ -1347,14 +1347,15 @@ footer ul li a:hover {
 .account .container .sidebar .sidebar_links button {
   color: gray;
   text-decoration: none;
-  font-weight: 300;
-  transition: 0.3s;
+  font-weight: 400;
+  transition: color 0.3s, transform 0.3s;
   border: none;
   background: transparent;
 }
 .account .container .sidebar .sidebar_links button:hover {
-  color: #dfdf07;
-  transition: 0.3s;
+  color: #6ba6cf;
+  font-weight: 500;
+  transform: translateX(10px);
 }
 .account .container .sidebar .sidebar_links .active {
   color: #dfdf07;
@@ -1381,13 +1382,14 @@ footer ul li a:hover {
   border-radius: 7px;
 }
 .account_components h3 {
-  font-size: 30px;
+  font-size: 32px;
   font-weight: 600;
-  color: #dfdf07;
+  color: #7dbaef;
 }
 .account_components div:first-child {
   font-size: 30px;
   font-weight: 500;
+  
 }
 .account_components img {
   width: 250px;
@@ -1397,9 +1399,11 @@ footer ul li a:hover {
 .account_components div {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 7px;
   position: relative;
 }
+
+
 .account_components div .label-infoTag-wrapper {
   display: flex;
   flex-direction: row;
@@ -1414,10 +1418,11 @@ footer ul li a:hover {
 .account_components div input,
 .account_components div select,
 .account_components div textarea {
-  background: #8080805e;
+  background: #dedddd5e;
   border: none;
-  color: #555;
+  color: #6b6b6b;
   padding: 8px 3px;
+  border-radius: 6px;
 }
 .account_components div input:focus,
 .account_components div select:focus,
@@ -1431,9 +1436,28 @@ footer ul li a:hover {
   flex-direction: row;
   justify-content: flex-end;
 }
+
 .save_change_btn_wrapper .btn {
-  width: fit-content;
+  background: #1f78ee;
+  color: #fff;
+  padding: 12px 25px;
+  font-size: 18px;
+  border-radius: 7px;
+  cursor: pointer;
 }
+.account_components .view-resume:hover {
+  background: #00000087;
+  cursor: pointer;
+  box-shadow: 0 6px 12px rgba(31, 145, 238, 0.4);
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+.save_change_btn_wrapper .btn:hover {
+  background: linear-gradient(90deg, #78b9ee, #74b0ff);
+  cursor: pointer;
+  box-shadow: 0 6px 12px rgba(31, 145, 238, 0.4);
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
 .account_components input::file-selector-button {
   width: 100%;
   padding: 7px;
@@ -1468,7 +1492,6 @@ footer ul li a:hover {
   gap: 30px;
 }
 .account_components .applications_container .card {
-  /* border-bottom: 1px solid rgb(133, 133, 133); */
   margin-bottom: 30px;
   background: #8080803d;
   padding: 25px 12px;
@@ -1717,7 +1740,7 @@ footer ul li a:hover {
   }
 } */
 
-.application_page {
+/* .application_page {
   display: flex;
   gap: 40px;
   max-width: 1500px;
@@ -1846,7 +1869,201 @@ hr {
   .btn {
     min-width: 100%;
   }
+} */
+
+/* General Page Styles */
+.application_page {
+  display: flex;
+  gap: 40px;
+  max-width: 1500px;
+  min-width: 1500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
+
+/* Form Section */
+.application_page form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.application_page form h3 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.application_page form div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.application_page form div input {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.application_page form div input:focus {
+  border-color: #90aad1;
+  box-shadow: 0 0 6px rgba(144, 170, 209, 0.3);
+}
+
+/* Job Details Section */
+.application_page .job-details {
+  flex: 1;
+  padding: 50px 20px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.application_page .job-details header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.application_page .job-details h3 {
+  font-size: 26px;
+  font-weight: 600;
+  color: #333;
+}
+
+.application_page .job-details header a,
+.application_page .job-details header p {
+  font-size: 16px;
+  color: #777;
+}
+
+hr {
+  margin: 20px 0;
+  border: 0.5px solid #e0e0e0;
+}
+
+.application_page .job-details section {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.application_page .job-details section .wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.application_page .job-details section .wrapper:first-child div {
+  display: flex;
+  gap: 12px;
+}
+
+.application_page .job-details section .wrapper:first-child div div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.application_page .job-details section .wrapper:first-child div div span {
+  font-size: 16px;
+  color: #555;
+}
+
+.application_page .job-details section .wrapper .location-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.application_page .job-details section .wrapper .location-wrapper span {
+  color: #777;
+  font-size: 16px;
+}
+
+.application_page .job-details section .wrapper:last-child p {
+  font-size: 16px;
+  color: #555;
+}
+
+.application_page .job-details section .wrapper:last-child h4 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.application_page .job-details section .wrapper:last-child ul li {
+  font-size: 16px;
+  color: #555;
+}
+
+/* Footer Section */
+.application_page .job-details footer {
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  padding: 0;
+  border: none;
+}
+
+.application_page .job-details footer p {
+  font-size: 16px;
+  color: #777;
+}
+
+/* Media Queries */
+@media (max-width: 1520px) {
+  .application_page {
+    min-width: 100%;
+    padding: 20px;
+  }
+}
+
+@media (max-width: 830px) {
+  .application_page {
+    flex-direction: column-reverse;
+    gap: 20px;
+  }
+
+  .application_page form {
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 411px) {
+  .btn {
+    min-width: 100%;
+  }
+}
+
+/* Button Styles */
+.application_page button {
+  padding: 10px 20px;
+  background-color: #90aad1;
+  border: none;
+  border-radius: 8px;
+  color: rgb(255, 255, 255);
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.application_page button:hover {
+  background-color: #9fbde2;
+}
+
 
 button:disabled {
   background: gray;

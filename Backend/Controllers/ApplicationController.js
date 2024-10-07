@@ -34,7 +34,7 @@ export const postApplication = catchAsyncErrors(async(req, res, next)=>{
         return next(new ErrorHandler("You have already applied for this job.", 400));
     }
     if(req.files && req.files.resume){
-        const resume = req.files.resume;
+        const { resume } = req.files;
         try{
             const cloudinaryResponse = await cloudinary.uploader.upload(resume.tempFilePath,{
                 folder: "Job_Seekers_Resume"
@@ -57,8 +57,8 @@ export const postApplication = catchAsyncErrors(async(req, res, next)=>{
         }
         jobSeekerInfo.resume = {
             public_id: req.user && req.user.resume.public_id,
-            url: req.user && req.user.resume.url
-        }
+            url: req.user && req.user.resume.url,
+        };
     }
     const employerInfo = {
         id: jobDetails.postedBy,
@@ -132,7 +132,7 @@ export const deleteApplication = catchAsyncErrors(async(req, res, next)=>{
     const application = await Application.findById(id);
 
     if(!application){
-        return next(new Error("Application not found.", 404));
+        return next(new ErrorHandler("Application not found.", 404));
     }
     const { role} = req.user;
     switch(role){

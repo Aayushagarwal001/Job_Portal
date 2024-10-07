@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { register } from "../store/Slices/UserSlice";
+import { clearAllUserErrors, register } from "../store/Slices/UserSlice";
 import { toast } from "react-toastify";
 import { FaAddressBook, FaPencilAlt, FaRegUser } from "react-icons/fa";
 import { FaPhoneFlip } from "react-icons/fa6";
@@ -55,64 +55,64 @@ const Register = () => {
     const dispatch = useDispatch();
     const navigateTo = useNavigate();
     
-    // const handleRegister = (e) => {
-    //     e.preventDefault();
-    //     const formData = new FormData();
-    //     formData.append("role", role);
-    //     formData.append("name", name);
-    //     formData.append("email", email);
-    //     formData.append("phone", phone);
-    //     formData.append("address", address);
-    //     formData.append("password", password);
-    //     formData.append("gender", gender);
-    //     if(role === "Job Seeker") {
-    //         formData.append("firstField", firstField);
-    //         formData.append("secondField", secondField);
-    //         formData.append("thirdField", thirdField);
-    //         formData.append("coverLetter", coverLetter);
-    //         formData.append("resume", resume);
-    //     }
-    //     dispatch(register(formData));
-    // };
     const handleRegister = (e) => {
-      e.preventDefault();
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append("role", role);
+        formData.append("name", name);
+        formData.append("email", email);
+        formData.append("phone", phone);
+        formData.append("address", address);
+        formData.append("password", password);
+        formData.append("gender", gender);
+        if(role === "Job Seeker") {
+            formData.append("firstField", firstField);
+            formData.append("secondField", secondField);
+            formData.append("thirdField", thirdField);
+            formData.append("coverLetter", coverLetter);
+            formData.append("resume", resume);
+        }
+        dispatch(register(formData));
+    };
+  //   const handleRegister = (e) => {
+  //     e.preventDefault();
   
-      // Basic validation to check if all required fields are filled
-      if (!role || !name || !email || !phone || !password || !address || !gender) {
-          toast.error("All fields are required!", {
-              position: "top-right"
-          });
-          return;
-      }
+  //     // Basic validation to check if all required fields are filled
+  //     if (!role || !name || !email || !phone || !password || !address || !gender) {
+  //         toast.error("All fields are required!", {
+  //             position: "top-right"
+  //         });
+  //         return;
+  //     }
   
-      // Additional validation for Job Seeker role fields
-      if (role === "Job Seeker" && (!firstField || !secondField || !thirdField || !coverLetter || !resume)) {
-          toast.error("All Job Seeker fields are required!", {
-              position: "top-right"
-          });
-          return;
-      }
+  //     // Additional validation for Job Seeker role fields
+  //     if (role === "Job Seeker" && (!firstField || !secondField || !thirdField || !coverLetter || !resume)) {
+  //         toast.error("All Job Seeker fields are required!", {
+  //             position: "top-right"
+  //         });
+  //         return;
+  //     }
   
-      // Create form data if all validations pass
-      const formData = new FormData();
-      formData.append("role", role);
-      formData.append("name", name);
-      formData.append("email", email);
-      formData.append("phone", phone);
-      formData.append("address", address);
-      formData.append("password", password);
-      formData.append("gender", gender);
+  //     // Create form data if all validations pass
+  //     const formData = new FormData();
+  //     formData.append("role", role);
+  //     formData.append("name", name);
+  //     formData.append("email", email);
+  //     formData.append("phone", phone);
+  //     formData.append("address", address);
+  //     formData.append("password", password);
+  //     formData.append("gender", gender);
   
-      if (role === "Job Seeker") {
-          formData.append("firstField", firstField);
-          formData.append("secondField", secondField);
-          formData.append("thirdField", thirdField);
-          formData.append("coverLetter", coverLetter);
-          formData.append("resume", resume);
-      }
+  //     if (role === "Job Seeker") {
+  //         formData.append("firstField", firstField);
+  //         formData.append("secondField", secondField);
+  //         formData.append("thirdField", thirdField);
+  //         formData.append("coverLetter", coverLetter);
+  //         formData.append("resume", resume);
+  //     }
   
-      dispatch(register(formData));
-  };
+  //     dispatch(register(formData));
+  // };
   
     useEffect(() => {
         if(error){

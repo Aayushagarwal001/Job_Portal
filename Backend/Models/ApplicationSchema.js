@@ -5,7 +5,6 @@ const applicationSchema = new mongoose.Schema({
     jobSeekerInfo:{
         id:{
             type: mongoose.Schema.Types.ObjectId,
-            ref: "User",
             required: true
         },
         name:{
@@ -16,7 +15,6 @@ const applicationSchema = new mongoose.Schema({
         email:{
             type: String,
             required: true,
-            unique: true,
             validate: [validator.isEmail, "Please provide a valid email."]
         },
         phone:{
@@ -89,7 +87,6 @@ const applicationSchema = new mongoose.Schema({
     jobInfo:{
         jobId:{
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Job",
             required: true
         },
         jobTitle:{

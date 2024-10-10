@@ -13,7 +13,6 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
-    unique: true, // Ensure no duplicate emails
     validate: [validator.isEmail, "Please provide a valid email."],
   },
   phone: {
@@ -68,10 +67,10 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.pre("save", async function(next){
-  if(this.isModified("password")){
-    this.password = await bcrypt.hash(this.password, 10);
+  if (!this.isModified("password")) {
+    next();
   }
-  next();
+  this.password = await bcrypt.hash(this.password, 10);
 });
 
 userSchema.methods.comparePassword = async function(enteredPassword){

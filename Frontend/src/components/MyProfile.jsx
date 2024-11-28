@@ -87,7 +87,7 @@ const MyProfile = () => {
             onChange={(e) => e.target.value}
             />
         </div>
-        <div>
+        {/* <div>
             <label>Joined On</label>
             <input
             type="text"
@@ -95,7 +95,24 @@ const MyProfile = () => {
             value={user && user.createdAt}
             onChange={(e) => e.target.value}
             />
+        </div> */}
+        <div>
+          <label>Joined On</label>
+          <input
+            type="text"
+            disabled
+            value={
+              user && new Date(user.createdAt).toLocaleDateString('en-US', {
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric',
+              })
+            }
+            onChange={(e) => e.target.value}
+          />
         </div>
+
+
      </div>
   );
 };

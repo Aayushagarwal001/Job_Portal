@@ -42,11 +42,11 @@ const TopFields = () => {
             service: 'Content Writing',
             description: 'Create written content for websites, blogs, and marketing materials. Focuses on clear, engaging, and SEO-friendly writing.'
         },
-        {
-            id: 9,
-            service: 'Human Resources',
-            description: 'Manage employee relations, recruitment, and organizational development. Includes hiring, training, and performance management.'
-        },
+        // {
+        //     id: 9,
+        //     service: 'Human Resources',
+        //     description: 'Manage employee relations, recruitment, and organizational development. Includes hiring, training, and performance management.'
+        // },
 
     ];
     

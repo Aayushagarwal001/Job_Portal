@@ -70,6 +70,7 @@ const userSlice = createSlice({
             state.isAuthenticated = false;
             state.user = {};
             state.error = action.payload;
+            state.message = null;
         },
         logoutSuccess(state, action) {
             state.isAuthenticated = false;

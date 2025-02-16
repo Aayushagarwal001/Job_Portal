@@ -59,32 +59,44 @@
 
 
 
-
 import cron from "node-cron";
 import { Job } from "../Models/JobSchema.js";
 import { User } from "../Models/UserSchema.js";
 import { sendEmail } from "../Utils/SendEmail.js";
 
-const newsLetterCron = cron.schedule('0 0 * * *', async () => {
-    console.log("Running job alert cron...");
+// Function to send email notification to users about upcoming jobs
+export const newsLetterCron = () => {
+    cron.schedule("*/1 * * * *", async () => {
+        console.log("Running job alert cron...");
 
-    try {
-        const users = await User.find(); // Fetch users from DB
-        const jobs = await Job.find().sort({ createdAt: -1 }).limit(5); // Latest 5 jobs
+        try {
+            const jobs = await Job.find({ newsLetterSent: false });
 
-        if (users.length === 0 || jobs.length === 0) {
-            console.log("No users or jobs available. Skipping email alerts.");
-            return;
-        }
+            if (jobs.length === 0) {
+                console.log("No new jobs found. Skipping email alerts.");
+                return;
+            }
 
-        for (const user of users) {
             for (const job of jobs) {
                 try {
-                    await sendEmail({
-                        email: user.email,
-                        subject: `New Job Alert: ${job.title} at ${job.companyName}`,
-                        message: `New job alert: ${job.title} at ${job.companyName}`,
-                        html: `
+                    // Find users matching the job category
+                    const filteredUsers = await User.find({
+                        $or: [
+                            { "Fields.firstField": job.jobCategory },
+                            { "Fields.secondField": job.jobCategory },
+                            { "Fields.thirdField": job.jobCategory },
+                        ],
+                    });
+
+                    if (filteredUsers.length === 0) {
+                        console.log(`No users found for job category: ${job.jobCategory}`);
+                        continue;
+                    }
+
+                    for (const user of filteredUsers) {
+                        const subject = `New Job Alert: ${job.title} at ${job.companyName}`;
+                        
+                        const htmlMessage = `
                             <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
                                 <h2 style="color: #0056b3;">New Job Alert: ${job.title} at ${job.companyName}</h2>
                                 <p>Hi <strong>${user.name}</strong>,</p>
@@ -101,28 +113,36 @@ const newsLetterCron = cron.schedule('0 0 * * *', async () => {
 
                                 <p style="margin: 20px 0;">Don't miss out on this opportunity! Click below to apply:</p>
 
-                                <a href="https://quickhire-portal.netlify.app"
+                                <a href="https://quickhire-portal.netlify.app/jobs/${job._id}"
                                    style="display: inline-block; padding: 10px 20px; font-size: 16px; color: white; background-color: #28a745; text-decoration: none; border-radius: 5px;">
                                    📝 Apply Now
                                 </a>
 
                                 <p style="margin-top: 20px;">Best regards,<br><strong>Quick Hire Team</strong></p>
                             </div>
-                        `,
-                    });
+                        `;
 
-                    console.log(`Email sent to ${user.email} for job ${job.title}`);
-                } catch (emailError) {
-                    console.error(`Failed to send email to ${user.email}:`, emailError);
+                        await sendEmail({
+                            email: user.email,
+                            subject,
+                            message: `New job alert: ${job.title} at ${job.companyName}`,
+                            html: htmlMessage,
+                        });
+
+                        console.log(`Email sent to ${user.email} for job ${job.title}`);
+                    }
+
+                    // Mark job as processed
+                    job.newsLetterSent = true;
+                    await job.save();
+                } catch (error) {
+                    console.error(`Error processing job ${job.title}:`, error);
                 }
             }
+
+            console.log("Job alert cron completed.");
+        } catch (error) {
+            console.error("Error in job alert cron:", error);
         }
-
-        console.log("Job alert cron completed.");
-    } catch (error) {
-        console.error("Error in job alert cron:", error);
-    }
-});
-
-export default newsLetterCron;
-
+    });
+};

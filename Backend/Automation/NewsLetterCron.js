@@ -60,79 +60,69 @@
 
 
 
-import cron from "node-cron";
-import { Job } from "../Models/JobSchema.js";
-import { User } from "../Models/UserSchema.js";
-import { sendEmail } from "../Utils/SendEmail.js";
+import cron from 'node-cron';
+import { sendEmail } from './sendEmail.js';  // Ensure correct path
+import Job from '../models/jobModel.js';     // Ensure correct path
+import User from '../models/userModel.js';   // Ensure correct path
 
-// Function to send job alert emails to users
-export const newsLetterCron = () => {
-    cron.schedule("*/1 * * * *", async () => {
-        console.log("Running job alert cron...");
-        const jobs = await Job.find({ newsLetterSent: false });
+const newsLetterCron = cron.schedule('0 0 * * *', async () => {
+    console.log("Running job alert cron...");
 
-        for (const job of jobs) {
-            try {
-                // Find users whose interests match the job category
-                const filteredUsers = await User.find({
-                    $or: [
-                        { "Fields.firstField": job.jobCategory },
-                        { "Fields.secondField": job.jobCategory },
-                        { "Fields.thirdField": job.jobCategory }
-                    ]
-                });
+    try {
+        const users = await User.find(); // Fetch users from DB
+        const jobs = await Job.find().sort({ createdAt: -1 }).limit(5); // Latest 5 jobs
 
-                for (const user of filteredUsers) {
-                    const subject = `New Job Alert: ${job.title} at ${job.companyName}`;
+        if (users.length === 0 || jobs.length === 0) {
+            console.log("No users or jobs available. Skipping email alerts.");
+            return;
+        }
 
-                    // Ensure the job description is within a reasonable length
-                    const jobDescription = job.description.length > 300
-                        ? job.description.substring(0, 300) + "..."
-                        : job.description;
-
-                    const message = `
-                        <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-                            <h2 style="color: #0056b3;">New Job Alert: ${job.title} at ${job.companyName}</h2>
-                            <p>Hi <strong>${user.name}</strong>,</p>
-                            <p>We are excited to inform you about a new job opportunity that matches your interests in <strong>${job.jobCategory}</strong>!</p>
-
-                            <h3 style="color: #009688;">Job Details:</h3>
-                            <ul>
-                                <li><strong>Position:</strong> ${job.title}</li>
-                                <li><strong>Company:</strong> ${job.companyName}</li>
-                                <li><strong>Location:</strong> ${job.location}</li>
-                                <li><strong>Job Type:</strong> ${job.jobType}</li>
-                                <li><strong>Description:</strong> ${jobDescription}</li>
-                            </ul>
-
-                            <p style="margin: 20px 0;">Don't miss out on this opportunity! Click below to apply:</p>
-
-                            <a href="https://quickhire-portal.netlify.app/jobs/${job._id}"
-                               style="display: inline-block; padding: 10px 20px; font-size: 16px; color: white; background-color: #28a745; text-decoration: none; border-radius: 5px;">
-                               📝 Apply Now
-                            </a>
-
-                            <p style="margin-top: 20px;">Best regards,<br><strong>Quick Hire Team</strong></p>
-                        </div>
-                    `;
-
-                    console.log("Sending email to:", user.email);
-
-                    sendEmail({
+        for (const user of users) {
+            for (const job of jobs) {
+                try {
+                    await sendEmail({
                         email: user.email,
-                        subject,
-                        message,  // HTML email content
-                        html: message  // Ensures HTML formatting
-                    });
-                }
+                        subject: `New Job Alert: ${job.title} at ${job.companyName}`,
+                        message: `New job alert: ${job.title} at ${job.companyName}`,
+                        html: `
+                            <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+                                <h2 style="color: #0056b3;">New Job Alert: ${job.title} at ${job.companyName}</h2>
+                                <p>Hi <strong>${user.name}</strong>,</p>
+                                <p>We are excited to inform you about a new job opportunity that matches your interests in <strong>${job.jobCategory}</strong>!</p>
+                                
+                                <h3 style="color: #009688;">Job Details:</h3>
+                                <ul>
+                                    <li><strong>Position:</strong> ${job.title}</li>
+                                    <li><strong>Company:</strong> ${job.companyName}</li>
+                                    <li><strong>Location:</strong> ${job.location}</li>
+                                    <li><strong>Job Type:</strong> ${job.jobType}</li>
+                                    <li><strong>Description:</strong> ${job.description}</li>
+                                </ul>
 
-                // Mark job as newsletter sent
-                job.newsLetterSent = true;
-                await job.save();
-                
-            } catch (error) {
-                console.error("Error in processing job alerts:", error);
+                                <p style="margin: 20px 0;">Don't miss out on this opportunity! Click below to apply:</p>
+
+                                <a href="https://quickhire-portal.netlify.app"
+                                   style="display: inline-block; padding: 10px 20px; font-size: 16px; color: white; background-color: #28a745; text-decoration: none; border-radius: 5px;">
+                                   📝 Apply Now
+                                </a>
+
+                                <p style="margin-top: 20px;">Best regards,<br><strong>Quick Hire Team</strong></p>
+                            </div>
+                        `,
+                    });
+
+                    console.log(`Email sent to ${user.email} for job ${job.title}`);
+                } catch (emailError) {
+                    console.error(`Failed to send email to ${user.email}:`, emailError);
+                }
             }
         }
-    });
-};
+
+        console.log("Job alert cron completed.");
+    } catch (error) {
+        console.error("Error in job alert cron:", error);
+    }
+});
+
+export default newsLetterCron;
+

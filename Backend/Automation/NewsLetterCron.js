@@ -60,10 +60,10 @@
 
 
 
-import cron from 'node-cron';
-import { sendEmail } from './sendEmail.js';  // Ensure correct path
-import Job from '../models/jobModel.js';     // Ensure correct path
-import User from '../models/userModel.js';   // Ensure correct path
+import cron from "node-cron";
+import { Job } from "../Models/JobSchema.js";
+import { User } from "../Models/UserSchema.js";
+import { sendEmail } from "../Utils/SendEmail.js";
 
 const newsLetterCron = cron.schedule('0 0 * * *', async () => {
     console.log("Running job alert cron...");

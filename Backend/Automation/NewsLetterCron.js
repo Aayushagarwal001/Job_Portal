@@ -113,7 +113,7 @@ export const newsLetterCron = () => {
 
                                 <p style="margin: 20px 0;">Don't miss out on this opportunity! Click below to apply:</p>
 
-                                <a href="https://quickhire-portal.netlify.app/jobs/${job._id}"
+                                <a href="https://quickhire-portal.netlify.app/jobs"
                                    style="display: inline-block; padding: 10px 20px; font-size: 16px; color: white; background-color: #28a745; text-decoration: none; border-radius: 5px;">
                                    📝 Apply Now
                                 </a>

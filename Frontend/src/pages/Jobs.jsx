@@ -39,6 +39,7 @@ const Jobs = () => {
         dispatch(fetchJobs(city, category, searchKeyword));
     };
     const cities = [
+        "All",
         "Bangalore",
         "Mumbai",
         "Delhi",
@@ -61,6 +62,11 @@ const Jobs = () => {
         "Lucknow"
       ];
     const jobcategory = [
+        'All',
+        'Marketing',
+        'Finance',
+        'IT',
+        'Healthcare',
         'Web Development',
         'Data Analyst',
         'Graphic Design',
@@ -161,7 +167,7 @@ const Jobs = () => {
                             </div>
                             <div className="jobs_container">
                                 {
-                                  jobs && jobs.map(element => {
+                                  jobs && jobs.length > 0 ? (jobs.map((element) => {
                                     return (
                                         <div className="card" key={element._id}> 
                                             {element.vacancies >= 5 ? (
@@ -184,8 +190,17 @@ const Jobs = () => {
                                                 </Link>
                                             </div>
                                         </div>
-                                    )
-                                  })                                    
+                                    );
+                                  })) : (
+                                    <div className="no-jobs">
+                                    <img 
+                                      src="https://img.freepik.com/free-vector/hand-drawn-404-error_23-2147735273.jpg?t=st=1739713142~exp=1739716742~hmac=72323190fa0e0d36c09fc7a0d91a36635b808e05c8416fe2d7b253ff5c642349&w=740" 
+                                      alt="No Jobs Available" 
+                                      className="no-jobs-image"
+                                    />
+                                    <p>No jobs available at the moment.</p>
+                                  </div>
+                                  )                                    
                                 }
 
                             </div>
@@ -197,7 +212,7 @@ const Jobs = () => {
             )
            }
         </>
-    )
-}
+    );
+};
 
 export default Jobs;

@@ -104,16 +104,16 @@ export const newsLetterCron = () => {
                                 
                                 <h3 style="color: #009688;">Job Details:</h3>
                                 <ul>
-                                    <li><strong>Position:</strong> ${job.title}</li>
-                                    <li><strong>Company:</strong> ${job.companyName}</li>
-                                    <li><strong>Location:</strong> ${job.location}</li>
-                                    <li><strong>Job Type:</strong> ${job.jobType}</li>
-                                    <li><strong>Description:</strong> ${job.description}</li>
+                                    <li><strong>💼 Position:</strong> ${job.title}</li>
+                                    <li><strong>🏢 Company:</strong> ${job.companyName}</li>
+                                    <li><strong>📍 Location:</strong> ${job.location}</li>
+                                    <li><strong>⏳ Job Type:</strong> ${job.jobType}</li>
+                                    <li><strong>📝 Description:</strong> ${job.description}</li>
                                 </ul>
 
                                 <p style="margin: 20px 0;">Don't miss out on this opportunity! Click below to apply:</p>
 
-                                <a href="https://quickhire-portal.netlify.app"
+                                <a href="https://quickhire-portal.netlify.app/jobs/${job._id}"
                                    style="display: inline-block; padding: 10px 20px; font-size: 16px; color: white; background-color: #28a745; text-decoration: none; border-radius: 5px;">
                                    📝 Apply Now
                                 </a>

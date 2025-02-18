@@ -2,6 +2,11 @@
 
 A full-stack **Job Portal** application built using **MERN Stack (MongoDB, Express.js, React.js, Node.js)**. This platform allows users to register, upload resumes, apply for jobs, and for recruiters to post and manage job listings.
 
+## 🚀 Live Demo
+
+🔗 **[🌍Explore the Job Portal Now!](https://quickhire-portal.netlify.app/)**
+
+
 ## 🚀 Features
 
 ### ✅ **User Features**
@@ -185,6 +190,10 @@ Contributions are welcome! Feel free to open issues and submit PRs.
 
 ---
 
+## 📜 License
+This project is MIT Licensed. Feel free to modify and use it as per your need.
+
+---
 
 ## 📞 Contact
 For any queries, contact at [aayushagarwal7775@gmai.com](mailto:aayushagarwal7775@gmai.com).

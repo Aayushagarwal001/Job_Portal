@@ -85,7 +85,7 @@ npm install
 
 - **Create a `.env` file** inside `Backend/` and add:
 ```env
-MONGO_URI=mongodb+srv://your-username:your-password@cluster.mongodb.net/JOB_PORTAL
+MONGO_URI=mongodb_atlas_url
 FRONTEND_URL=url(localhost or deployed site url)
 JWT_SECRET_KEY=your_secret_key
 JWT_EXPIRE=days(eg. 7d, 14d)
